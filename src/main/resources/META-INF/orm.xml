@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
+                 version="1.0">
+
+    <description>Persistence Demo</description>
+    
+    <mapped-superclass class="persistence.demo.entity.Entity">
+        <attributes>
+            <id name="id">
+                <column name="ID"/>
+                <generated-value strategy="SEQUENCE" generator="ID_SEQ"/>
+            </id>
+        </attributes>
+    </mapped-superclass>
+
+    <entity class="persistence.demo.entity.Employee" name="Employee"
+            access="PROPERTY"
+            >
+        <table name="EMPLOYEE"/>
+        <named-query name="getEmployeeByName">
+            <query>
+                <![CDATA[
+                SELECT e from Employee e where e.name.firstName=:fName and e.name.lastName=:lName
+                ]]>
+            </query>
+        </named-query>
+
+        <named-query name="getAllEmployees">
+            <query>
+                <![CDATA[
+                SELECT e FROM Employee e  ORDER BY e.id
+            ]]>
+            </query>
+        </named-query>
+
+        <attributes>
+            <basic name="doj" optional="false">
+                <column name="DATE_JOIN"/>
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="bloodGroup" optional="true">
+                <column name="BLOOD_GROUP" length="3"/>
+            </basic>
+            <basic name="dol" optional="true">
+                <column name="DATE_LEAVING"/>
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="band">
+                <enumerated>STRING</enumerated>
+            </basic>
+            <embedded name="name"/>
+            <embedded name="landPhone"/>
+
+        </attributes>
+
+    </entity>
+
+    <embeddable class="persistence.demo.entity.Name" access="PROPERTY">
+        <attributes>
+            <basic name="firstName" optional="false">
+                <column name="F_NAME" length="50"/>
+            </basic>
+            <basic name="middleName" optional="true">
+                <column name="M_NAME" length="50"/>
+            </basic>
+
+            <basic name="lastName" optional="false">
+                <column name="L_NAME" length="50"/>
+            </basic>
+        </attributes>
+    </embeddable>
+
+    <embeddable class="persistence.demo.entity.Phone" access="PROPERTY">
+        <attributes>
+            <basic name="countryCode">
+                <column name="LP_C_CODE"/>
+            </basic>
+            <basic name="stdCode">
+                <column name="LP_STD_CODE"/>
+            </basic>
+            <basic name="number">
+                <column name="LP_NUMBER"/>
+            </basic>
+        </attributes>
+    </embeddable>
+
+
+</entity-mappings>
