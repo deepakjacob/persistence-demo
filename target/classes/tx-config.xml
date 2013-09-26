@@ -19,15 +19,15 @@
             <!-- all methods starting with 'get' are read-only -->
             <tx:method name="get*" read-only="true"/>
             <!-- other methods use the default transaction settings (see below) -->
-            <tx:method name="*"/>
+            <tx:method name="*" propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
 
     <!-- ensure that the above transactional advice runs for any execution
       of an operation defined by the FooService interface -->
     <aop:config>
-        <aop:pointcut id="serviceInvokation" expression="execution(* persistence.demo.service.*Service.*(..))"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceInvokation"/>
+        <aop:pointcut id="serviceInvocation" expression="execution(* persistence.demo.service.*Service.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceInvocation"/>
     </aop:config>
 
 

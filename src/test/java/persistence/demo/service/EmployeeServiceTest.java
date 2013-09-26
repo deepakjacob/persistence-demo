@@ -25,8 +25,16 @@ public class EmployeeServiceTest {
 
     @Test
     public void testSaveEmployee() {
-        Employee emp = createEmployee();
-        employeeService.save(emp);
+        employeeService.save(createEmployee());
+        employeeService.save(createEmployee());
+        employeeService.save(createEmployee());
+        employeeService.save(createEmployee());
+        employeeService.save(createEmployee());
+        employeeService.save(createEmployee());
+        employeeService.save(createEmployee());
+        employeeService.save(createEmployee());
+        employeeService.save(createEmployee());
+        employeeService.save(createEmployee());
 
     }
 
